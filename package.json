@@ -1,0 +1,46 @@
+{
+  "name": "mpopulate",
+  "version": "1.0.0",
+  "description": "Minimalistic population for node-mongodb-native",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec",
+    "standard": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/avoronkin/mpopuate.git"
+  },
+  "keywords": [
+    "mongodb",
+    "node-mongodb-native",
+    "population"
+  ],
+  "author": "Alexandr Voronkin <hello@elasticweb.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/avoronkin/mpopuate/issues"
+  },
+  "homepage": "https://github.com/avoronkin/mpopuate#readme",
+  "devDependencies": {
+    "istanbul": "^0.4.3",
+    "mocha": "^2.4.5",
+    "pre-commit": "^1.1.2",
+    "standard": "^6.0.8"
+  },
+  "pre-commit": [
+    "standard",
+    "test"
+  ],
+  "standard": {
+    "globals": [
+      "after",
+      "afterEach",
+      "before",
+      "beforeEach",
+      "describe",
+      "it"
+    ]
+  }
+}
