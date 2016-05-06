@@ -9,7 +9,8 @@ var mc = require('mongodb').MongoClient
 var mpopulate = require('mpopulate')
 
 mc.connect('mongodb://localhost:27017/mpopulate').then(function (db) {
-  return db.collection('posts').find().toArray().then(function (posts) {
+  return db.collection('posts').find().toArray()
+  .then(function (posts) {
     console.log(posts)
     // [{
     //   _id: 1,
