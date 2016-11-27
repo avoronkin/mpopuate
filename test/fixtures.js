@@ -47,22 +47,22 @@ exports.users = [
 exports.comments = [
   {
     _id: id(1),
-    text: 'text1',
+    text: 'comment1 text',
     user: id(2)
   },
   {
     _id: id(2),
-    text: 'text2',
+    text: 'comment2 text',
     user: id(1)
   },
   {
     _id: id(3),
-    text: 'text3',
+    text: 'comment3 text',
     user: id(3)
   },
   {
     _id: id(4),
-    text: 'text4',
+    text: 'comment4 text',
     user: id(4)
   }
 ]

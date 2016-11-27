@@ -2,6 +2,7 @@ var assert = require('assert')
 var util = require('../../lib/util')
 var getIds = util.getIds
 var get = util.get
+var set = util.set
 var zipObjectWith = util.zipObjectWith
 
 describe('util', function () {
@@ -82,6 +83,116 @@ describe('util', function () {
         }]
       }, 'test.test2.foo.bar')
       assert.deepEqual([2, 2, 4], value)
+    })
+  })
+
+  describe.only('set', function () {
+    it('set deep path', function () {
+      var obj = {
+        a: 1,
+        d: {
+          e: {
+            f: 5
+          }
+        }
+      }
+
+      set(obj, 'd.e.f', 19)
+      set(obj, 'a.b.c', 44)
+
+      assert.deepEqual(obj, {
+        a: {
+          b: {
+            c: 44
+          }
+        },
+        d: {
+          e: {
+            f: 19
+          }
+        }
+      })
+    })
+
+    it('create object if not exists', function () {
+      var obj = {}
+      set(obj, 'x.y.z', 10)
+
+      assert.deepEqual(obj, {
+        x: {
+          y: {
+            z: 10
+          }
+        }
+      })
+    })
+
+    it('set value for all items in array', function () {
+      var obj = {
+        b: [
+          {
+            c: {
+              a: 9
+            }
+          },
+          {
+            c: {
+              d: 0
+            }
+          }
+        ]
+      }
+      set(obj, 'b.c.d', 9)
+
+      assert.deepEqual(obj, {
+        b: [
+          {
+            c: {
+              a: 9,
+              d: 9
+            }
+          },
+          {
+            c: {
+              d: 9
+            }
+          }
+        ]
+      })
+    })
+
+    it('set property in array by index', function () {
+      var obj = {
+        b: [
+          {
+            c: {
+              a: 9
+            }
+          },
+          {
+            c: {
+              h: 0
+            }
+          }
+        ]
+      }
+      set(obj, 'b.0.c.d', 55)
+
+      assert.deepEqual(obj, {
+        b: [
+          {
+            c: {
+              a: 9,
+              d: 55
+            }
+          },
+          {
+            c: {
+              h: 0
+            }
+          }
+        ]
+      })
     })
   })
 

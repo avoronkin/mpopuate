@@ -41,9 +41,22 @@ describe('mpopulate', function () {
                 }
               })
               .toArray()
+          },
+          'comments.user': function (ids) {
+            return db.collection('users')
+              .find({
+                _id: {
+                  $in: ids
+                }
+              })
+              .toArray()
           }
         })
           .then(function (posts) {
+            console.dir(posts[0].comments, {
+              depth: 10
+            })
+
             assert.deepEqual(posts[0], {
               _id: id(1),
               title: 'title1',
@@ -54,23 +67,35 @@ describe('mpopulate', function () {
               comments: [
                 {
                   _id: id(1),
-                  text: 'text1',
-                  user: id(2)
+                  text: 'comments1 text',
+                  user: {
+                    _id: id(2),
+                    name: 'user2'
+                  }
                 },
                 {
                   _id: id(2),
-                  text: 'text2',
-                  user: id(1)
+                  text: 'comments2 text',
+                  user: {
+                    _id: id(1),
+                    name: 'user1'
+                  }
                 },
                 {
                   _id: id(3),
-                  text: 'text3',
-                  user: id(3)
+                  text: 'comments3 text',
+                  user: {
+                    _id: id(3),
+                    name: 'user3'
+                  }
                 },
                 {
                   _id: id(4),
-                  text: 'text4',
-                  user: id(4)
+                  text: 'comments4 text',
+                  user: {
+                    _id: id(4),
+                    name: 'user4'
+                  }
                 }
               ]
             })
