@@ -1,12 +1,11 @@
 {
   "name": "mpopulate",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Minimalistic population for node-mongodb-native",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --recursive",
-    "standard": "standard"
+    "test": "jest",
+    "dev": "jest --watchAll --notify"
   },
   "repository": {
     "type": "git",
@@ -24,30 +23,11 @@
   },
   "homepage": "https://github.com/avoronkin/mpopuate#readme",
   "devDependencies": {
-    "bluebird": "^3.3.5",
-    "istanbul": "^0.4.3",
-    "lodash": "^4.11.1",
-    "mocha": "^2.4.5",
-    "mongodb": "^2.1.16",
-    "pre-commit": "^1.1.2",
-    "standard": "^6.0.8"
+    "jest": "^22.4.3",
+    "pre-commit": "^1.1.2"
   },
   "pre-commit": [
-    "standard",
     "test"
   ],
-  "standard": {
-    "globals": [
-      "after",
-      "afterEach",
-      "before",
-      "beforeEach",
-      "describe",
-      "it"
-    ]
-  },
-  "dependencies": {
-    "lodash": "^4.11.1",
-    "wrapped": "^1.0.1"
-  }
+  "dependencies": {}
 }

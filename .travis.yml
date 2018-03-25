@@ -1,7 +1,4 @@
 language: node_js
 node_js:
-  - "4.2"
-script: "npm run-script cover"
-after_script: "npm install coveralls && cat ./coverage/lcov.info | coveralls"
-services:
-  - mongodb
+  - "8"
+script: "npm test"
