@@ -1,1 +1,1 @@
-module.exports = require('./lib/populate')
+module.exports = require('./lib')

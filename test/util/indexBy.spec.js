@@ -1,5 +1,5 @@
-var assert = require('assert')
-var indexBy = require('../../lib/util/indexBy')
+const assert = require('assert')
+const indexBy = require('../../lib/util/indexBy')
 
 describe('indexBy', function () {
 

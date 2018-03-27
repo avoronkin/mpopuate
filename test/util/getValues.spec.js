@@ -1,15 +1,15 @@
-var assert = require('assert')
-var getValues = require('../../lib/util/getValues')
+const assert = require('assert')
+const getValues = require('../../lib/util/getValues')
 
 describe('getValues', function () {
     it('should return empty array if path doesn\'t found', function () {
-        var value = getValues({}, 'test test2')
+        const value = getValues({}, 'test test2')
 
         assert.deepEqual(value, [])
     })
 
     it('should support several paths', function () {
-        var value = getValues({
+        const value = getValues({
             test: false,
             test2: true
         }, 'test test2')
@@ -18,7 +18,7 @@ describe('getValues', function () {
     })
 
     it('should support deep path', function () {
-        var value = getValues({
+        const value = getValues({
             test: {
                 test2: 2
             }
@@ -28,7 +28,7 @@ describe('getValues', function () {
     })
 
     it('should support several deep paths', function () {
-        var value = getValues({
+        const value = getValues({
             test: {
                 test2: 2
             },
@@ -41,7 +41,7 @@ describe('getValues', function () {
     })
 
     it('should support arrays', function () {
-        var value = getValues({
+        const value = getValues({
             test: [{
                 test2: 2
             }, {
@@ -51,11 +51,11 @@ describe('getValues', function () {
             }]
         }, 'test.test2 foo.bar')
 
-        assert.deepEqual(value, [2, 2, 4])
+        assert.deepEqual(value, [2, 4])
     })
 
     it('should support arrays', function () {
-        var value = getValues({
+        const value = getValues({
             test: [{
                 test2: {
                     foo: [
@@ -83,6 +83,6 @@ describe('getValues', function () {
             }]
         }, 'test.test2.foo.bar')
 
-        assert.deepEqual(value, [2, 2, 4])
+        assert.deepEqual(value, [2, 4])
     })
 })

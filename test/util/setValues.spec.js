@@ -1,5 +1,5 @@
-var assert = require('assert')
-var setValues = require('../../lib/util/setValues')
+const assert = require('assert')
+const setValues = require('../../lib/util/setValues')
 
 describe('setValues', function () {
 
@@ -11,10 +11,11 @@ describe('setValues', function () {
 
         setValues(obj,
             'test test2',
-            {
-                1: {id: 1},
-                2: {id: 2}
-            }
+            [
+                {id: 1},
+                {id: 2}
+            ],
+            'id'
         )
 
         assert.deepEqual(obj, {
@@ -32,7 +33,8 @@ describe('setValues', function () {
 
         setValues(obj,
             'test.test2',
-            {2: {id: 2}}
+            [{id: 2}],
+            'id'
         )
 
         assert.deepEqual(obj, {
@@ -52,10 +54,11 @@ describe('setValues', function () {
 
         setValues(obj,
             'test.test2 foo.bar',
-            {
-                1: {id: 1},
-                2: {id: 2}
-            }
+            [
+                {id: 1},
+                {id: 2}
+            ],
+            'id'
         )
 
         assert.deepEqual(obj, {
@@ -64,7 +67,7 @@ describe('setValues', function () {
         })
     })
 
-    it('should support arrays', function () {
+    it('should support arrays of objects', function () {
         const obj = [
             { test2: 2 },
             { test2: 2 },
@@ -73,10 +76,11 @@ describe('setValues', function () {
 
         setValues(obj,
             'test2 foo.bar',
-            {
-                2: {id: 2},
-                4: {id: 4}
-            }
+            [
+                {id: 2},
+                {id: 4}
+            ],
+            'id'
         )
 
         assert.deepEqual(obj, [
@@ -86,25 +90,55 @@ describe('setValues', function () {
         ])
     })
 
+
+
     it('should support nested arrays', function () {
-        const obj = { test: [
-            { test2: { foo: [ { bar: 2 } ] } },
-            { test2: { foo: [ { bar: 2 } ] } },
-            { test2: { foo: [ { bar: 4 } ] } }
-        ]}
+        const obj = [
+            {
+                test: [
+                    { test2: { foo: [ { bar: 2 } ] } },
+                    { test2: { foo: [ { bar: 2 } ] } },
+                    { test2: { foo: [ { bar: 4 } ] } }
+                ]
+            }
+        ]
 
         setValues(obj,
             'test.test2.foo.bar',
-            {
-                2: {id: 2},
-                4: {id: 4}
-            }
+            [
+                {id: 2},
+                {id: 4}
+            ],
+            'id'
         )
 
-        assert.deepEqual(obj, { test: [
+        assert.deepEqual(obj, [{ test: [
             { test2: { foo: [ { bar: {id: 2} } ] } },
             { test2: { foo: [ { bar: {id: 2} } ] } },
             { test2: { foo: [ { bar: {id: 4} } ] } }
-        ]})
+        ]}])
+    })
+
+    it('should support arrays of primitives', function () {
+        const obj = [
+            {
+                test: [ 2, 2, 4 ]
+            }
+        ]
+
+        setValues(obj,
+            'test',
+            [
+                {id: 2},
+                {id: 4}
+            ],
+            'id'
+        )
+
+        assert.deepEqual(obj, [{ test: [
+            {id: 2},
+            {id: 2},
+            {id: 4}
+        ]}])
     })
 })

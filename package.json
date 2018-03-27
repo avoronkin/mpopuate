@@ -1,7 +1,7 @@
 {
   "name": "mpopulate",
   "version": "2.0.0",
-  "description": "Minimalistic population for node-mongodb-native",
+  "description": "Minimalistic population",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/avoronkin/mpopuate#readme",
   "devDependencies": {
     "jest": "^22.4.3",
+    "mongodb": "^3.0.5",
     "pre-commit": "^1.1.2"
   },
   "pre-commit": [
