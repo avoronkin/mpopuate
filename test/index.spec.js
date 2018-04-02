@@ -1,8 +1,8 @@
-const mpopulate = require('../../../lib/populators/mongodb')
+const mpopulate = require('../lib')
 const assert = require('assert')
 const helper = require('./helper')
 const fixtures = require('./fixture')
-const MongoClient = require('mongodb').MongoClient
+const { MongoClient, ObjectId } = require('mongodb')
 const id = helper.makeObjectId
 
 describe('mpopulate', function () {
@@ -22,37 +22,19 @@ describe('mpopulate', function () {
     it('should populate', async () => {
         const posts = await db.collection('posts').find().toArray()
 
-        // const populate = populator([
-        //     {
-        //         type: 'mongodb',
-        //         from: 'users',
-        //         localField: 'author',
-        //         foreignField: '_id',
-        //         db
-        //     },
-        //     {
-        //         type: 'mongodb',
-        //         from: 'comments',
-        //         localField: 'comments',
-        //         foreignField: '_id',
-        //         db
-        //     }
-        // ])
-
-        await mpopulate({
-            docs: posts,
-            from: 'users',
-            localField: 'author',
-            foreignField: '_id',
-            db
-        })
-
-        await mpopulate({
-            docs: posts,
-            from: 'comments',
-            localField: 'comments',
-            foreignField: '_id',
-            db
+        await mpopulate(posts)({
+            'author comments.user': function (ids) {
+                return db.collection('users').find({
+                    _id: {
+                        $in: ids.map(ObjectId)
+                    }
+                }).toArray()
+            },
+            comments: function (ids) {
+                return db.collection('comments').find({ _id: {
+                    $in: ids.map(ObjectId)
+                }}).toArray()
+            },
         })
 
         assert.deepEqual(posts[0], {

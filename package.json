@@ -30,5 +30,7 @@
   "pre-commit": [
     "test"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "bluebird": "^3.5.1"
+  }
 }

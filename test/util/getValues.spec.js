@@ -1,5 +1,6 @@
 const assert = require('assert')
 const getValues = require('../../lib/util/getValues')
+const { makeObjectId } = require('../helper')
 
 describe('getValues', function () {
     it('should return empty array if path doesn\'t found', function () {
@@ -60,7 +61,7 @@ describe('getValues', function () {
                 test2: {
                     foo: [
                         {
-                            bar: 2
+                            bar: makeObjectId(2)
                         }
                     ]
                 }
@@ -68,7 +69,7 @@ describe('getValues', function () {
                 test2: {
                     foo: [
                         {
-                            bar: 2
+                            bar: makeObjectId(2)
                         }
                     ]
                 }
@@ -76,13 +77,16 @@ describe('getValues', function () {
                 test2: {
                     foo: [
                         {
-                            bar: 4
+                            bar: makeObjectId(4)
                         }
                     ]
                 }
             }]
         }, 'test.test2.foo.bar')
 
-        assert.deepEqual(value, [2, 4])
+        assert.deepEqual(value, [
+            '000000000000000000000002',
+            '000000000000000000000004'
+        ])
     })
 })
