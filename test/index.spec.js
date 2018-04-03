@@ -48,22 +48,34 @@ describe('mpopulate', function () {
                 {
                     _id: id(1),
                     text: 'text1',
-                    user: id(2)
+                    user: {
+                        _id: id(2),
+                        name: 'user2'
+                    }
                 },
                 {
                     _id: id(2),
                     text: 'text2',
-                    user: id(1)
+                    user: {
+                        _id: id(1),
+                        name: 'user1'
+                    }
                 },
                 {
                     _id: id(3),
                     text: 'text3',
-                    user: id(3)
+                    user: {
+                        _id: id(3),
+                        name: 'user3'
+                    }
                 },
                 {
                     _id: id(4),
                     text: 'text4',
-                    user: id(4)
+                    user: {
+                        _id: id(4),
+                        name: 'user4'
+                    }
                 }
             ]
         })
