@@ -4,7 +4,7 @@
   "description": "Minimalistic population",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --forceExit",
     "dev": "jest --watchAll --notify"
   },
   "repository": {

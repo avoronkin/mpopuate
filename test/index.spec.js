@@ -6,10 +6,10 @@ const { MongoClient } = require('mongodb')
 const id = helper.makeObjectId
 
 describe('mpopulate', function () {
-    let db
+    let db, client
 
     beforeEach(async () => {
-        const client = await MongoClient.connect('mongodb://localhost:27017/mpopulate-test')
+        client = await MongoClient.connect('mongodb://localhost:27017/mpopulate-test')
         db = client.db('mpopulate-test')
 
         await db.dropDatabase()
@@ -18,6 +18,10 @@ describe('mpopulate', function () {
             db.collection('users').insertMany(fixtures.users),
             db.collection('comments').insertMany(fixtures.comments)
         ])
+    })
+
+    afterAll(() => {
+        return client.close(true)
     })
 
     it('should populate #1', async () => {
