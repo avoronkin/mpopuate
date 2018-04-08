@@ -10,40 +10,40 @@ npm install mpopulate
 
 
 ```javascript
-var mc = require('mongodb').MongoClient
-var mpopulate = require('mpopulate')
+const mc = require('mongodb').MongoClient
+const mpopulate = require('mpopulate')
 
-mc.connect('mongodb://localhost:27017/mpopulate').then(function (db) {
-  return db.collection('posts').find().toArray()
-  .then(function (posts) {
-    console.log(posts)
-    // [{
-    //   _id: 1,
-    //   title: 'title',
-    //   author: 1
-    // }]
-    return mpopulate(posts)({
-      author: function (ids) {
-        return db.collection('users').find({
-          _id: {
-            $in: ids
-          }
-        })
-        .toArray()
-      }
-    })
-  })
-  .then(function (posts) {
-    console.log(posts)
-    // [{
-    //   _id: 1,
-    //   title: 'title',
-    //   author: {
-    //     _id: 1
-    //     name: 'name'
-    //   }
-    // }]
-  })
+const db = await mc.connect('mongodb://localhost:27017/mpopulate')
+
+const posts = await db.collection('posts').find().toArray()
+
+await mpopulate([
+    {
+        localField: 'author comments.user',
+        from: 'users',
+        foreignField: '_id',
+    },
+    {
+        localField: 'comments',
+        from: 'comments',
+        foreignField: '_id',
+    }
+],{
+    mongodb: {
+        db
+    }
+})(posts, {
+    author: {name: 1}
+})
+
+assert.deepEqual(posts[0], {
+    _id: id(1),
+    title: 'title1',
+    author: {
+        _id: id(1),
+        name: 'user1'
+    },
+    comments: [ id(1), id(2), id(3), id(4) ]
 })
 
 
